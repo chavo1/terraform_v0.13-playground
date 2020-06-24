@@ -13,6 +13,7 @@ module "ec2-west-count" {
 
 # ec2 for_each using the default provider - "us-east-1"
 module "ec2-east-for-each" {
+  depends_on = [module.ec2-west-count]
   source   = "./ec2-east"
   for_each = var.ami_for_each
   ami      = each.value
@@ -24,6 +25,5 @@ variable "ami_for_each" {
   default = {
     ami1 = "ami-0f4225da3a1e24a51"
     ami2 = "ami-0cc2b036435209c9e"
-    
   }
 }
